@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -29,9 +30,6 @@
 
             --typo-display-s-size: clamp(32px, 4vw, 42px);
             --typo-display-s-weight: 700;
-
-            --typo-subhead-size: 16px;
-            --typo-subhead-weight: 500;
             
             --typo-body-l-size: 16px;
             --typo-body-l-weight: 400;
@@ -42,13 +40,7 @@
             --section-padding: 160px 5vw;
         }
 
-        /* =========================================
-           2. Base & Reset
-        ========================================= */
-        * {
-            margin: 0; padding: 0; box-sizing: border-box;
-            cursor: none; 
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
 
         body {
             background-color: var(--bg-warm);
@@ -59,191 +51,145 @@
         }
 
         /* =========================================
-           3. Custom Cursor (빛의 번짐)
+           2. Custom Cursor
         ========================================= */
         .cursor-glow {
             position: fixed; top: 0; left: 0;
             width: 300px; height: 300px;
             background: radial-gradient(circle, rgba(217, 185, 155, 0.25) 0%, transparent 60%);
             border-radius: 50%;
-            pointer-events: none; 
-            transform: translate(-50%, -50%);
-            z-index: 9999;
-            transition: width 0.4s ease, height 0.4s ease;
+            pointer-events: none; transform: translate(-50%, -50%);
+            z-index: 9999; transition: width 0.4s ease, height 0.4s ease;
             mix-blend-mode: multiply;
         }
 
         /* =========================================
-           4. Floating Navigation (헤더 박스 추가)
+           3. Floating Navigation
         ========================================= */
         nav {
-            position: fixed; 
-            top: 0; left: 0; width: 100%;
-            padding: 32px 5vw; /* 초기 여백 */
-            display: flex;
-            justify-content: space-between; 
-            align-items: center; /* 수직 중앙 정렬 */
-            z-index: 1000; 
-            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-            /* 기본 상태는 투명 */
-            background-color: transparent;
-            border-bottom: 1px solid transparent;
+            position: fixed; top: 0; left: 0; width: 100%;
+            padding: 32px 5vw; display: flex;
+            justify-content: space-between; align-items: center;
+            z-index: 1000; transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            background-color: transparent; border-bottom: 1px solid transparent;
         }
 
-        /* 스크롤 시 헤더에 배경과 경계선 추가 */
         nav.scrolled {
-            padding: 20px 5vw; /* 스크롤 시 상하 여백이 줄어들며 날렵해짐 */
-            background-color: rgba(242, 240, 237, 0.85); /* 웜그레이 반투명 */
-            backdrop-filter: blur(12px); /* 고급스러운 블러 처리 */
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(26, 26, 26, 0.08); /* 아주 얇고 세련된 하단 경계선 */
+            padding: 20px 5vw; 
+            background-color: rgba(242, 240, 237, 0.85); 
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(26, 26, 26, 0.08); 
         }
 
-        .nav-logo, .nav-menu {
-            pointer-events: auto;
-            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-            color: var(--text-dark); 
-        }
+        .nav-logo, .nav-menu { pointer-events: auto; transition: all 0.5s ease; color: var(--text-dark); }
+        .nav-logo { font-weight: 800; font-size: 28px; letter-spacing: 0.05em; text-transform: uppercase; }
+        .nav-menu { font-weight: 500; font-size: 14px; letter-spacing: 0.08em; display: flex; align-items: center; height: 28px; }
+        .nav-menu-line { display: block; width: 0; height: 2px; background-color: var(--text-dark); margin-left: 10px; transition: width 0.5s ease; }
 
-        .nav-logo {
-            font-weight: 800; font-size: 28px;
-            letter-spacing: 0.05em; text-transform: uppercase;
-        }
-
-        .nav-menu {
-            font-weight: 500; font-size: 14px;
-            letter-spacing: 0.08em; display: flex;
-            align-items: center; height: 28px; 
-        }
-
-        .nav-menu-line {
-            display: block; width: 0; height: 2px;
-            background-color: var(--text-dark);
-            margin-left: 10px;
-            transition: width 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        /* 스크롤 시 로고/메뉴 텍스트 애니메이션 유지 */
-        .scrolled .nav-logo { 
-            transform: scale(0.65); /* 박스 크기에 맞춰 적당히 축소 */
-            transform-origin: left center; 
-        }
-        .scrolled .nav-menu-text { 
-            opacity: 0; 
-            position: absolute; 
-            pointer-events: none; 
-        }
-        .scrolled .nav-menu-line { 
-            width: 40px; /* 라인 길이를 살짝 다듬음 */
-            margin-left: 0; 
-        }
+        .scrolled .nav-logo { transform: scale(0.65); transform-origin: left center; }
+        .scrolled .nav-menu-text { opacity: 0; position: absolute; pointer-events: none; }
+        .scrolled .nav-menu-line { width: 40px; margin-left: 0; }
 
         /* =========================================
-           5. Hero Section 
+           4. Hero Section
         ========================================= */
         .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 0 5vw;
+            height: 100vh; display: flex; flex-direction: column;
+            justify-content: center; padding: 0 5vw;
         }
-
         .hero h1 {
-            font-size: var(--typo-display-l-size);
-            font-weight: var(--typo-display-l-weight);
-            line-height: var(--typo-display-l-lh);
-            letter-spacing: var(--typo-display-l-ls);
-            text-transform: uppercase;
-            will-change: transform, opacity, filter;
+            font-size: var(--typo-display-l-size); font-weight: var(--typo-display-l-weight);
+            line-height: var(--typo-display-l-lh); letter-spacing: var(--typo-display-l-ls);
+            text-transform: uppercase; will-change: transform, opacity, filter;
         }
-
         .hero h1 span.short-line { display: block; }
         .hero h1 span.long-line { display: block; }
-
         .hero-desc {
-            font-size: var(--typo-body-l-size);
-            font-weight: var(--typo-body-l-weight);
-            line-height: var(--typo-body-lh);
-            letter-spacing: var(--typo-body-ls);
-            color: var(--text-dark);
-            margin-top: 32px;
-            max-width: 600px;
-            word-break: keep-all; 
+            font-size: var(--typo-body-l-size); font-weight: var(--typo-body-l-weight);
+            line-height: var(--typo-body-lh); color: var(--text-dark);
+            margin-top: 32px; max-width: 600px; word-break: keep-all; 
         }
 
         /* =========================================
-           6. Featured Product
+           5. Signature Scent (Full-screen Visual)
         ========================================= */
-        .section-minimal {
-            padding: var(--section-padding);
-            display: grid;
-            grid-template-columns: 4fr 5fr;
-            gap: var(--grid-gap);
-            align-items: center;
+        .section-full-visual {
+            position: relative; width: 100%; height: 100vh; 
+            display: flex; align-items: center; justify-content: center; overflow: hidden;
+        }
+        .full-bg-image {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover; background-position: center;
+            filter: brightness(0.7) sepia(0.05); /* 글씨 가독성을 위한 어두운 레이어 */
+            z-index: 1; transition: transform 2.5s ease;
+        }
+        .section-full-visual.is-visible .full-bg-image { transform: scale(1.03); } /* 아주 느린 확대 효과 */
+
+        .full-content { position: relative; z-index: 2; text-align: center; color: #FFFFFF; padding: 0 5vw; }
+        .full-content .label { font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 24px; display: block; opacity: 0.8; }
+        .full-content h2 { font-size: clamp(40px, 6vw, 80px); font-weight: 800; margin-bottom: 32px; line-height: 1.1; }
+        .full-content p { font-size: 18px; line-height: 1.8; max-width: 600px; margin: 0 auto; word-break: keep-all; opacity: 0.9; }
+
+        /* =========================================
+           6. Collection Section (Prologue to Serenity)
+        ========================================= */
+        .section-collection {
+            /* 거시적 여백(Macro Negative Space) 적용 - 숨 고르기 공간 */
+            padding: 240px 5vw 160px; 
+            background-color: var(--bg-warm);
         }
 
-        .image-wrapper {
-            width: 100%; aspect-ratio: 3/4;
-            overflow: hidden; background-color: #E8E6E3;
+        .collection-header { text-align: center; margin-bottom: 100px; }
+        .collection-header h3 {
+            font-size: var(--typo-display-s-size);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .collection-header p {
+            font-size: var(--typo-body-l-size);
+            color: var(--text-muted);
+            margin-top: 16px;
+        }
+
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3열 그리드 */
+            gap: 6vw; /* 내부 < 외부 법칙: 압도적으로 넓은 간격 */
+        }
+
+        .collection-item { text-align: left; }
+        .collection-item .img-wrap {
+            width: 100%; aspect-ratio: 3/4; overflow: hidden;
+            background-color: #E8E6E3; margin-bottom: 24px;
             position: relative;
         }
-
-        .image-wrapper img {
+        
+        .collection-item img {
             width: 100%; height: 100%; object-fit: cover;
             filter: sepia(0.05) contrast(1.02);
-            transition: transform 1.5s ease;
+            /* 느리고 목적 있는 모션 디자인 (Slow & Purposeful) */
+            transition: transform 1.6s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
-        .image-wrapper:hover img { transform: scale(1.03); }
+        .collection-item:hover img { transform: scale(1.04); }
 
-        .text-content {
-            padding-right: 5vw;
-        }
-
-        .text-content .label {
+        .collection-item .item-title {
             font-family: var(--font-sans);
-            font-size: var(--typo-subhead-size);
-            font-weight: var(--typo-subhead-weight);
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            display: block;
-            margin-bottom: 16px;
+            font-size: 20px; font-weight: 600;
+            letter-spacing: 0.05em; margin-bottom: 8px;
         }
 
-        .text-content h2 {
-            font-family: var(--font-sans);
-            font-size: var(--typo-display-s-size);
-            font-weight: var(--typo-display-s-weight);
-            line-height: 1.3;
-            letter-spacing: -0.02em;
-            margin-bottom: 32px;
-            word-break: keep-all;
-        }
-
-        .text-content p {
-            font-family: var(--font-sans);
-            font-size: var(--typo-body-l-size);
-            font-weight: var(--typo-body-l-weight);
-            line-height: var(--typo-body-lh);
-            letter-spacing: var(--typo-body-ls);
-            color: #4A4A4A;
-            word-break: keep-all; 
-        }
-
-        .text-content .serif-accent {
+        /* 은유 기반의 시각적 텍스트 (세리프 이탤릭체) */
+        .collection-item .item-metaphor {
             font-family: var(--font-serif);
-            font-weight: 500;
-            font-style: italic;
-            display: block;
-            margin-top: 40px;
-            font-size: 22px; 
+            font-size: 18px; font-weight: 500; font-style: italic;
             color: var(--accent-amber);
             letter-spacing: 0.02em;
         }
 
         /* =========================================
-           7. Scent-like Transition
+           7. Scent-like Transition (등장 애니메이션)
         ========================================= */
         .scent-reveal {
             opacity: 0; filter: blur(15px); transform: translateY(30px);
@@ -252,10 +198,7 @@
                         transform 1.4s cubic-bezier(0.2, 0.8, 0.2, 1);
             will-change: transform, opacity, filter;
         }
-
-        .scent-reveal.is-visible {
-            opacity: 1; filter: blur(0); transform: translateY(0);
-        }
+        .scent-reveal.is-visible { opacity: 1; filter: blur(0); transform: translateY(0); }
 
         /* =========================================
            8. Responsive
@@ -263,8 +206,9 @@
         @media (max-width: 768px) {
             .hero h1 { font-size: 48px; }
             .hero { padding-top: 80px; }
-            .section-minimal { grid-template-columns: 1fr; gap: 60px; }
-            .text-content { padding-right: 0; padding-left: 5vw; }
+            .section-collection { padding-top: 160px; }
+            .collection-grid { grid-template-columns: 1fr; gap: 80px; } /* 모바일에서는 1열로 깊게 배치 */
+            .collection-item { text-align: center; } /* 모바일은 중앙 정렬이 예쁩니다 */
             .cursor-glow { display: none !important; }
             * { cursor: auto !important; }
         }
@@ -294,21 +238,48 @@
             </p>
         </header>
 
-        <section class="section-minimal">
-            <div class="image-wrapper scent-reveal">
-                <img src="https://images.unsplash.com/photo-1616949755610-8c9bbc08f138?q=80&w=1000&auto=format&fit=crop" alt="VOID 16:00 Perfume">
-            </div>
-            
-            <div class="text-content">
-                <span class="label scent-reveal">VOID 16:00</span>
-                <h2 class="scent-reveal" style="transition-delay: 0.1s;">오후 4시, 빛의 여백</h2>
-                
-                <p class="scent-reveal" style="transition-delay: 0.2s;">
+        <section class="section-full-visual scent-reveal">
+            <div class="full-bg-image"></div>
+            <div class="full-content">
+                <span class="label scent-reveal" style="transition-delay: 0.1s;">Signature Scent</span>
+                <h2 class="scent-reveal" style="transition-delay: 0.2s;">VOID 16:00</h2>
+                <p class="scent-reveal" style="transition-delay: 0.3s;">
                     서늘한 공기 사이로 비스듬히 떨어지는 오후의 볕.<br>
                     그 고요하고 나른한 찰나의 온도를 부드러운 잔향으로 엮어냈습니다.
                 </p>
-                
-                <span class="serif-accent scent-reveal" style="transition-delay: 0.3s;">A quiet space left just for you.</span>
+            </div>
+        </section>
+
+        <section class="section-collection">
+            <div class="collection-header scent-reveal">
+                <h3>Prologue to Serenity</h3>
+                <p>평온으로의 서막</p>
+            </div>
+
+            <div class="collection-grid">
+                <div class="collection-item scent-reveal" style="transition-delay: 0.1s;">
+                    <div class="img-wrap">
+                        <img src="https://images.unsplash.com/photo-1595532585257-2c938c4b2bdf?q=80&w=800&auto=format&fit=crop" alt="AIDA 09:00">
+                    </div>
+                    <div class="item-title">AIDA 09:00</div>
+                    <div class="item-metaphor">새벽 이슬을 머금은 이끼</div>
+                </div>
+
+                <div class="collection-item scent-reveal" style="transition-delay: 0.2s;">
+                    <div class="img-wrap">
+                        <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?q=80&w=800&auto=format&fit=crop" alt="YOHAKU">
+                    </div>
+                    <div class="item-title">YOHAKU</div>
+                    <div class="item-metaphor">비워진 자리의 따뜻한 온기</div>
+                </div>
+
+                <div class="collection-item scent-reveal" style="transition-delay: 0.3s;">
+                    <div class="img-wrap">
+                        <img src="https://images.unsplash.com/photo-1615397323214-cb223cde8572?q=80&w=800&auto=format&fit=crop" alt="YOIN">
+                    </div>
+                    <div class="item-title">YOIN</div>
+                    <div class="item-metaphor">스쳐간 후의 짙은 여운</div>
+                </div>
             </div>
         </section>
     </main>
@@ -335,7 +306,7 @@
             if(isMobile && navigator.vibrate) { navigator.vibrate(10); }
         });
 
-        /* 2. Nav Scroll - 헤더 박스 애니메이션 포함 */
+        /* 2. Nav Scroll */
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) { navbar.classList.add('scrolled'); } 
@@ -358,7 +329,7 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.scent-reveal').forEach(el => scentObserver.observe(el));
+        document.querySelectorAll('.scent-reveal, .section-full-visual').forEach(el => scentObserver.observe(el));
     </script>
 </body>
 </html>
