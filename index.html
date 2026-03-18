@@ -50,9 +50,7 @@
             overflow-x: hidden;
         }
 
-        /* =========================================
-           2. Custom Cursor
-        ========================================= */
+        /* 2. Custom Cursor */
         .cursor-glow {
             position: fixed; top: 0; left: 0;
             width: 300px; height: 300px;
@@ -63,9 +61,7 @@
             mix-blend-mode: multiply;
         }
 
-        /* =========================================
-           3. Floating Navigation
-        ========================================= */
+        /* 3. Floating Navigation */
         nav {
             position: fixed; top: 0; left: 0; width: 100%;
             padding: 32px 5vw; display: flex;
@@ -90,9 +86,7 @@
         .scrolled .nav-menu-text { opacity: 0; position: absolute; pointer-events: none; }
         .scrolled .nav-menu-line { width: 40px; margin-left: 0; }
 
-        /* =========================================
-           4. Hero Section
-        ========================================= */
+        /* 4. Hero Section */
         .hero {
             height: 100vh; display: flex; flex-direction: column;
             justify-content: center; padding: 0 5vw;
@@ -110,9 +104,7 @@
             margin-top: 32px; max-width: 600px; word-break: keep-all; 
         }
 
-        /* =========================================
-           5. Signature Scent (Full-screen Visual)
-        ========================================= */
+        /* 5. Signature Section (Full-screen Visual) */
         .section-full-visual {
             position: relative; width: 100%; height: 100vh; 
             display: flex; align-items: center; justify-content: center; overflow: hidden;
@@ -131,23 +123,22 @@
         .full-content h2 { font-size: clamp(40px, 6vw, 80px); font-weight: 800; margin-bottom: 32px; line-height: 1.1; }
         .full-content p { font-size: 18px; line-height: 1.8; max-width: 600px; margin: 0 auto; word-break: keep-all; opacity: 0.9; }
 
-        /* 럭셔리 라인 버튼 (Ghost Button) */
+        /* 럭셔리 라인 버튼 (문구 변경: LEARN MORE) */
         .btn-luxury {
             display: inline-block;
             margin-top: 48px;
-            padding: 16px 40px;
+            padding: 16px 44px;
             border: 1px solid rgba(255, 255, 255, 0.5);
             color: #FFFFFF;
             text-decoration: none;
             font-family: var(--font-sans);
-            font-size: 13px;
+            font-size: 12px; /* 살짝 더 작게 조절하여 우아함 강조 */
             font-weight: 500;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.2em; /* 자간을 더 넓게 */
             text-transform: uppercase;
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
             transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            cursor: none; /* 커스텀 커서를 위해 숨김 */
         }
 
         .btn-luxury:hover {
@@ -156,15 +147,13 @@
             border-color: #FFFFFF;
         }
 
-        /* =========================================
-           6. Collection Section (Time Series)
-        ========================================= */
+        /* 6. Collection Section (이미지 크기 축소 및 여백 확대) */
         .section-collection {
             padding: 240px 5vw 160px; 
             background-color: var(--bg-warm);
         }
 
-        .collection-header { text-align: center; margin-bottom: 100px; }
+        .collection-header { text-align: center; margin-bottom: 120px; }
         .collection-header h3 {
             font-size: var(--typo-display-s-size);
             font-weight: 700;
@@ -180,13 +169,22 @@
         .collection-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr); 
-            gap: 6vw; 
+            gap: 4vw; /* 전체적인 간격 유지 */
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .collection-item { text-align: left; }
+        .collection-item { 
+            text-align: center; /* 전체 중앙 정렬로 안정감 부여 */
+        }
+        
+        /* 이미지 박스 크기 축소 (이미지를 감싸는 wrap의 너비를 제한) */
         .collection-item .img-wrap {
-            width: 100%; aspect-ratio: 3/4; overflow: hidden;
-            background-color: #E8E6E3; margin-bottom: 24px;
+            width: 80%; /* 컬럼 너비의 80%만 차지하게 하여 여백 극대화 */
+            margin: 0 auto 32px; /* 중앙 배치 및 하단 마진 */
+            aspect-ratio: 3/4; 
+            overflow: hidden;
+            background-color: #E8E6E3;
             position: relative;
         }
         
@@ -195,24 +193,22 @@
             filter: sepia(0.05) contrast(1.02);
             transition: transform 1.6s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
-        .collection-item:hover img { transform: scale(1.04); }
+        .collection-item:hover img { transform: scale(1.05); }
 
         .collection-item .item-title {
             font-family: var(--font-sans);
-            font-size: 20px; font-weight: 600;
-            letter-spacing: 0.05em; margin-bottom: 8px;
+            font-size: 18px; font-weight: 600;
+            letter-spacing: 0.05em; margin-bottom: 10px;
         }
 
         .collection-item .item-metaphor {
             font-family: var(--font-serif);
-            font-size: 18px; font-weight: 500; font-style: italic;
+            font-size: 16px; font-weight: 500; font-style: italic;
             color: var(--accent-amber);
             letter-spacing: 0.02em;
         }
 
-        /* =========================================
-           7. Scent-like Transition
-        ========================================= */
+        /* 7. Reveal Animation */
         .scent-reveal {
             opacity: 0; filter: blur(15px); transform: translateY(30px);
             transition: opacity 1.4s cubic-bezier(0.2, 0.8, 0.2, 1), 
@@ -222,15 +218,11 @@
         }
         .scent-reveal.is-visible { opacity: 1; filter: blur(0); transform: translateY(0); }
 
-        /* =========================================
-           8. Responsive
-        ========================================= */
+        /* 8. Responsive */
         @media (max-width: 768px) {
             .hero h1 { font-size: 48px; }
-            .hero { padding-top: 80px; }
-            .section-collection { padding-top: 160px; }
-            .collection-grid { grid-template-columns: 1fr; gap: 80px; } 
-            .collection-item { text-align: center; } 
+            .collection-grid { grid-template-columns: 1fr; gap: 100px; } 
+            .collection-item .img-wrap { width: 70%; } /* 모바일에서도 작게 유지 */
             .cursor-glow { display: none !important; }
             * { cursor: auto !important; }
         }
@@ -269,7 +261,7 @@
                     서늘한 공기 사이로 비스듬히 떨어지는 오후의 볕.<br>
                     그 고요하고 나른한 찰나의 온도를 부드러운 잔향으로 엮어냈습니다.
                 </p>
-                <a href="#" class="btn-luxury scent-reveal" style="transition-delay: 0.4s;">Explore 16:00</a>
+                <a href="#" class="btn-luxury scent-reveal" style="transition-delay: 0.4s;">LEARN MORE</a>
             </div>
         </section>
 
@@ -308,62 +300,28 @@
     </main>
 
     <script>
-        /* 1. Custom Cursor & Haptics */
+        /* Cursor & Interaction Scripts */
         const cursorGlow = document.getElementById('cursorGlow');
         const isMobile = window.innerWidth <= 768;
-
         if (!isMobile) {
-            let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
-            let glowX = mouseX, glowY = mouseY;
+            let mouseX = window.innerWidth/2, mouseY = window.innerHeight/2, glowX = mouseX, glowY = mouseY;
             document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
-
             function animateCursor() {
                 glowX += (mouseX - glowX) * 0.1; glowY += (mouseY - glowY) * 0.1;
                 cursorGlow.style.left = glowX + 'px'; cursorGlow.style.top = glowY + 'px';
                 requestAnimationFrame(animateCursor);
             }
             animateCursor();
-
-            // 버튼 호버 시 커서 커지는 효과
-            document.querySelectorAll('.btn-luxury, .collection-item').forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    cursorGlow.style.width = '450px'; cursorGlow.style.height = '450px';
-                    cursorGlow.style.background = 'radial-gradient(circle, rgba(217, 185, 155, 0.4) 0%, transparent 60%)';
-                });
-                el.addEventListener('mouseleave', () => {
-                    cursorGlow.style.width = '300px'; cursorGlow.style.height = '300px';
-                    cursorGlow.style.background = 'radial-gradient(circle, rgba(217, 185, 155, 0.25) 0%, transparent 60%)';
-                });
-            });
         }
-
-        document.addEventListener('click', () => {
-            if(isMobile && navigator.vibrate) { navigator.vibrate(10); }
-        });
-
-        /* 2. Nav Scroll */
+        document.addEventListener('click', () => { if(isMobile && navigator.vibrate) navigator.vibrate(10); });
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) { navbar.classList.add('scrolled'); } 
-            else { navbar.classList.remove('scrolled'); }
+            if (window.scrollY > 50) navbar.classList.add('scrolled');
+            else navbar.classList.remove('scrolled');
         });
-
-        /* 3. Reveal Animation */
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px 0px -15% 0px',
-            threshold: 0.1
-        };
-
-        const scentObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
+        const scentObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('is-visible'); });
+        }, { threshold: 0.1 });
         document.querySelectorAll('.scent-reveal, .section-full-visual').forEach(el => scentObserver.observe(el));
     </script>
 </body>
