@@ -121,21 +121,45 @@
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?q=80&w=2000&auto=format&fit=crop');
             background-size: cover; background-position: center;
-            filter: brightness(0.7) sepia(0.05); /* 글씨 가독성을 위한 어두운 레이어 */
+            filter: brightness(0.7) sepia(0.05);
             z-index: 1; transition: transform 2.5s ease;
         }
-        .section-full-visual.is-visible .full-bg-image { transform: scale(1.03); } /* 아주 느린 확대 효과 */
+        .section-full-visual.is-visible .full-bg-image { transform: scale(1.03); }
 
         .full-content { position: relative; z-index: 2; text-align: center; color: #FFFFFF; padding: 0 5vw; }
         .full-content .label { font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 24px; display: block; opacity: 0.8; }
         .full-content h2 { font-size: clamp(40px, 6vw, 80px); font-weight: 800; margin-bottom: 32px; line-height: 1.1; }
         .full-content p { font-size: 18px; line-height: 1.8; max-width: 600px; margin: 0 auto; word-break: keep-all; opacity: 0.9; }
 
+        /* 럭셔리 라인 버튼 (Ghost Button) */
+        .btn-luxury {
+            display: inline-block;
+            margin-top: 48px;
+            padding: 16px 40px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            color: #FFFFFF;
+            text-decoration: none;
+            font-family: var(--font-sans);
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            cursor: none; /* 커스텀 커서를 위해 숨김 */
+        }
+
+        .btn-luxury:hover {
+            background-color: #FFFFFF;
+            color: var(--text-dark);
+            border-color: #FFFFFF;
+        }
+
         /* =========================================
-           6. Collection Section (Prologue to Serenity)
+           6. Collection Section (Time Series)
         ========================================= */
         .section-collection {
-            /* 거시적 여백(Macro Negative Space) 적용 - 숨 고르기 공간 */
             padding: 240px 5vw 160px; 
             background-color: var(--bg-warm);
         }
@@ -155,8 +179,8 @@
 
         .collection-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3열 그리드 */
-            gap: 6vw; /* 내부 < 외부 법칙: 압도적으로 넓은 간격 */
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 6vw; 
         }
 
         .collection-item { text-align: left; }
@@ -169,7 +193,6 @@
         .collection-item img {
             width: 100%; height: 100%; object-fit: cover;
             filter: sepia(0.05) contrast(1.02);
-            /* 느리고 목적 있는 모션 디자인 (Slow & Purposeful) */
             transition: transform 1.6s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
         .collection-item:hover img { transform: scale(1.04); }
@@ -180,7 +203,6 @@
             letter-spacing: 0.05em; margin-bottom: 8px;
         }
 
-        /* 은유 기반의 시각적 텍스트 (세리프 이탤릭체) */
         .collection-item .item-metaphor {
             font-family: var(--font-serif);
             font-size: 18px; font-weight: 500; font-style: italic;
@@ -189,7 +211,7 @@
         }
 
         /* =========================================
-           7. Scent-like Transition (등장 애니메이션)
+           7. Scent-like Transition
         ========================================= */
         .scent-reveal {
             opacity: 0; filter: blur(15px); transform: translateY(30px);
@@ -207,8 +229,8 @@
             .hero h1 { font-size: 48px; }
             .hero { padding-top: 80px; }
             .section-collection { padding-top: 160px; }
-            .collection-grid { grid-template-columns: 1fr; gap: 80px; } /* 모바일에서는 1열로 깊게 배치 */
-            .collection-item { text-align: center; } /* 모바일은 중앙 정렬이 예쁩니다 */
+            .collection-grid { grid-template-columns: 1fr; gap: 80px; } 
+            .collection-item { text-align: center; } 
             .cursor-glow { display: none !important; }
             * { cursor: auto !important; }
         }
@@ -247,6 +269,7 @@
                     서늘한 공기 사이로 비스듬히 떨어지는 오후의 볕.<br>
                     그 고요하고 나른한 찰나의 온도를 부드러운 잔향으로 엮어냈습니다.
                 </p>
+                <a href="#" class="btn-luxury scent-reveal" style="transition-delay: 0.4s;">Explore 16:00</a>
             </div>
         </section>
 
@@ -259,26 +282,26 @@
             <div class="collection-grid">
                 <div class="collection-item scent-reveal" style="transition-delay: 0.1s;">
                     <div class="img-wrap">
-                        <img src="https://images.unsplash.com/photo-1595532585257-2c938c4b2bdf?q=80&w=800&auto=format&fit=crop" alt="AIDA 09:00">
+                        <img src="https://images.unsplash.com/photo-1595532585257-2c938c4b2bdf?q=80&w=800&auto=format&fit=crop" alt="HAZE 07:00">
                     </div>
-                    <div class="item-title">AIDA 09:00</div>
-                    <div class="item-metaphor">새벽 이슬을 머금은 이끼</div>
+                    <div class="item-title">HAZE 07:00</div>
+                    <div class="item-metaphor">새벽 이슬을 머금은 옅은 안개</div>
                 </div>
 
                 <div class="collection-item scent-reveal" style="transition-delay: 0.2s;">
                     <div class="img-wrap">
-                        <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?q=80&w=800&auto=format&fit=crop" alt="YOHAKU">
+                        <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?q=80&w=800&auto=format&fit=crop" alt="BARE 13:00">
                     </div>
-                    <div class="item-title">YOHAKU</div>
-                    <div class="item-metaphor">비워진 자리의 따뜻한 온기</div>
+                    <div class="item-title">BARE 13:00</div>
+                    <div class="item-metaphor">구름 한 점 없는 투명한 바람</div>
                 </div>
 
                 <div class="collection-item scent-reveal" style="transition-delay: 0.3s;">
                     <div class="img-wrap">
-                        <img src="https://images.unsplash.com/photo-1615397323214-cb223cde8572?q=80&w=800&auto=format&fit=crop" alt="YOIN">
+                        <img src="https://images.unsplash.com/photo-1615397323214-cb223cde8572?q=80&w=800&auto=format&fit=crop" alt="ECHO 23:00">
                     </div>
-                    <div class="item-title">YOIN</div>
-                    <div class="item-metaphor">스쳐간 후의 짙은 여운</div>
+                    <div class="item-title">ECHO 23:00</div>
+                    <div class="item-metaphor">모두가 잠든 밤의 서늘한 무게감</div>
                 </div>
             </div>
         </section>
@@ -300,6 +323,18 @@
                 requestAnimationFrame(animateCursor);
             }
             animateCursor();
+
+            // 버튼 호버 시 커서 커지는 효과
+            document.querySelectorAll('.btn-luxury, .collection-item').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursorGlow.style.width = '450px'; cursorGlow.style.height = '450px';
+                    cursorGlow.style.background = 'radial-gradient(circle, rgba(217, 185, 155, 0.4) 0%, transparent 60%)';
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursorGlow.style.width = '300px'; cursorGlow.style.height = '300px';
+                    cursorGlow.style.background = 'radial-gradient(circle, rgba(217, 185, 155, 0.25) 0%, transparent 60%)';
+                });
+            });
         }
 
         document.addEventListener('click', () => {
