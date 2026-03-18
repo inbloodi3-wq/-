@@ -1,9 +1,8 @@
-<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIDORA - VOID 16:00</title>
+    <title>AIDORA - Unseen Presence</title>
     
     <link href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,11 +10,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
 
     <style>
+        /* =========================================
+           1. Design System
+        ========================================= */
         :root {
             --bg-warm: #F2F0ED;      
             --text-dark: #1A1A1A;    
             --text-muted: #8C8C8C;
             --accent-amber: #D9B99B;
+            
             --font-sans: 'SUIT', -apple-system, sans-serif;
             --font-serif: 'Cormorant', serif;
             
@@ -24,15 +27,28 @@
             --typo-display-l-lh: 1.1; 
             --typo-display-l-ls: -0.02em;
 
+            --typo-display-s-size: clamp(32px, 4vw, 42px);
+            --typo-display-s-weight: 700;
+
+            --typo-subhead-size: 16px;
+            --typo-subhead-weight: 500;
+            
             --typo-body-l-size: 16px;
             --typo-body-l-weight: 400;
             --typo-body-lh: 1.8; 
             --typo-body-ls: -0.005em;
 
-            --section-padding: 120px 5vw;
+            --grid-gap: 8vw;
+            --section-padding: 160px 5vw;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        /* =========================================
+           2. Base & Reset
+        ========================================= */
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            cursor: none; 
+        }
 
         body {
             background-color: var(--bg-warm);
@@ -42,99 +58,123 @@
             overflow-x: hidden;
         }
 
-        /* 1. Custom Cursor */
+        /* =========================================
+           3. Custom Cursor (빛의 번짐)
+        ========================================= */
         .cursor-glow {
             position: fixed; top: 0; left: 0;
             width: 300px; height: 300px;
             background: radial-gradient(circle, rgba(217, 185, 155, 0.25) 0%, transparent 60%);
             border-radius: 50%;
-            pointer-events: none; transform: translate(-50%, -50%);
-            z-index: 9999; transition: width 0.4s ease, height 0.4s ease;
+            pointer-events: none; 
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            transition: width 0.4s ease, height 0.4s ease;
             mix-blend-mode: multiply;
         }
 
-        /* 2. Navigation (선명한 색상 + 스크롤 시 사라지는 메뉴) */
+        /* =========================================
+           4. Floating Navigation (헤더 박스 추가)
+        ========================================= */
         nav {
-            position: fixed; top: 0; left: 0; width: 100%;
-            padding: 40px 5vw; display: flex;
-            justify-content: space-between; align-items: flex-start;
-            z-index: 1000; pointer-events: none;
+            position: fixed; 
+            top: 0; left: 0; width: 100%;
+            padding: 32px 5vw; /* 초기 여백 */
+            display: flex;
+            justify-content: space-between; 
+            align-items: center; /* 수직 중앙 정렬 */
+            z-index: 1000; 
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            /* 기본 상태는 투명 */
+            background-color: transparent;
+            border-bottom: 1px solid transparent;
+        }
+
+        /* 스크롤 시 헤더에 배경과 경계선 추가 */
+        nav.scrolled {
+            padding: 20px 5vw; /* 스크롤 시 상하 여백이 줄어들며 날렵해짐 */
+            background-color: rgba(242, 240, 237, 0.85); /* 웜그레이 반투명 */
+            backdrop-filter: blur(12px); /* 고급스러운 블러 처리 */
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(26, 26, 26, 0.08); /* 아주 얇고 세련된 하단 경계선 */
         }
 
         .nav-logo, .nav-menu {
             pointer-events: auto;
-            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-            color: var(--text-dark); /* 또렷한 블랙 색상 고정 */
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            color: var(--text-dark); 
         }
 
-        .nav-logo { font-weight: 800; font-size: 28px; letter-spacing: 0.05em; text-transform: uppercase; }
-        .nav-menu { font-weight: 500; font-size: 14px; letter-spacing: 0.08em; display: flex; align-items: center; height: 28px; }
-        .nav-menu-line { display: block; width: 0; height: 2px; background-color: var(--text-dark); margin-left: 10px; transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
+        .nav-logo {
+            font-weight: 800; font-size: 28px;
+            letter-spacing: 0.05em; text-transform: uppercase;
+        }
 
-        .scrolled .nav-logo { transform: scale(0.5); transform-origin: top left; opacity: 0.5; }
-        .scrolled .nav-menu-text { opacity: 0; position: absolute; pointer-events: none; }
-        .scrolled .nav-menu-line { width: 60px; margin-left: 0; }
+        .nav-menu {
+            font-weight: 500; font-size: 14px;
+            letter-spacing: 0.08em; display: flex;
+            align-items: center; height: 28px; 
+        }
 
-        /* 3. Hero Section (Signature Scent Focus) */
-        .hero-signature {
-            min-height: 100vh;
+        .nav-menu-line {
+            display: block; width: 0; height: 2px;
+            background-color: var(--text-dark);
+            margin-left: 10px;
+            transition: width 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* 스크롤 시 로고/메뉴 텍스트 애니메이션 유지 */
+        .scrolled .nav-logo { 
+            transform: scale(0.65); /* 박스 크기에 맞춰 적당히 축소 */
+            transform-origin: left center; 
+        }
+        .scrolled .nav-menu-text { 
+            opacity: 0; 
+            position: absolute; 
+            pointer-events: none; 
+        }
+        .scrolled .nav-menu-line { 
+            width: 40px; /* 라인 길이를 살짝 다듬음 */
+            margin-left: 0; 
+        }
+
+        /* =========================================
+           5. Hero Section 
+        ========================================= */
+        .hero {
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center; /* 중앙 정렬로 시그니처 강조 */
-            padding: 120px 5vw;
-            text-align: center;
+            padding: 0 5vw;
         }
 
-        /* 시그니처 이미지 (참조 이미지 무드 반영) */
-        .hero-visual {
-            width: clamp(280px, 30vw, 400px);
-            aspect-ratio: 3/4;
-            margin-bottom: 60px;
-            overflow: hidden;
-            background-color: #E8E6E3;
+        .hero h1 {
+            font-size: var(--typo-display-l-size);
+            font-weight: var(--typo-display-l-weight);
+            line-height: var(--typo-display-l-lh);
+            letter-spacing: var(--typo-display-l-ls);
+            text-transform: uppercase;
             will-change: transform, opacity, filter;
         }
 
-        .hero-visual img {
-            width: 100%; height: 100%; object-fit: cover;
-            filter: sepia(0.05) contrast(1.02);
-        }
-
-        /* 제품 테마 라벨 (UNSEEN PRESENCE) */
-        .hero-label {
-            font-family: var(--font-sans);
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--accent-amber);
-            margin-bottom: 16px;
-        }
-
-        /* 메인 제품명 (기단 효과 레이아웃) */
-        .hero-title {
-            font-size: var(--typo-display-l-size);
-            font-weight: var(--typo-display-l-weight);
-            line-height: 1.0;
-            letter-spacing: var(--typo-display-l-ls);
-            text-transform: uppercase;
-        }
-
-        .hero-title span.line-1 { display: block; font-size: 0.6em; margin-bottom: 5px; } /* 위는 짧고 */
-        .hero-title span.line-2 { display: block; } /* 아래는 길게 */
+        .hero h1 span.short-line { display: block; }
+        .hero h1 span.long-line { display: block; }
 
         .hero-desc {
             font-size: var(--typo-body-l-size);
             font-weight: var(--typo-body-l-weight);
             line-height: var(--typo-body-lh);
-            margin-top: 40px;
-            max-width: 500px;
+            letter-spacing: var(--typo-body-ls);
             color: var(--text-dark);
-            word-break: keep-all;
+            margin-top: 32px;
+            max-width: 600px;
+            word-break: keep-all; 
         }
 
-        /* 4. Product Info Section (초기 4단 구조 복구) */
+        /* =========================================
+           6. Featured Product
+        ========================================= */
         .section-minimal {
             padding: var(--section-padding);
             display: grid;
@@ -143,29 +183,89 @@
             align-items: center;
         }
 
-        .image-wrapper { width: 100%; aspect-ratio: 3/4; overflow: hidden; background-color: #E8E6E3; position: relative; }
-        .image-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.5s ease; }
+        .image-wrapper {
+            width: 100%; aspect-ratio: 3/4;
+            overflow: hidden; background-color: #E8E6E3;
+            position: relative;
+        }
+
+        .image-wrapper img {
+            width: 100%; height: 100%; object-fit: cover;
+            filter: sepia(0.05) contrast(1.02);
+            transition: transform 1.5s ease;
+        }
         .image-wrapper:hover img { transform: scale(1.03); }
 
-        .text-content { padding-right: 5vw; }
-        .text-content .label { font-size: 16px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 16px; }
-        .text-content h2 { font-size: 42px; font-weight: 700; line-height: 1.3; letter-spacing: -0.02em; margin-bottom: 32px; }
-        .text-content p { font-size: 16px; font-weight: 400; line-height: 1.8; color: #4A4A4A; word-break: keep-all; }
-        .text-content .serif-accent { font-family: var(--font-serif); font-weight: 500; font-style: italic; display: block; margin-top: 40px; font-size: 22px; color: var(--accent-amber); }
+        .text-content {
+            padding-right: 5vw;
+        }
 
-        /* 5. Reveal Animation */
+        .text-content .label {
+            font-family: var(--font-sans);
+            font-size: var(--typo-subhead-size);
+            font-weight: var(--typo-subhead-weight);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            display: block;
+            margin-bottom: 16px;
+        }
+
+        .text-content h2 {
+            font-family: var(--font-sans);
+            font-size: var(--typo-display-s-size);
+            font-weight: var(--typo-display-s-weight);
+            line-height: 1.3;
+            letter-spacing: -0.02em;
+            margin-bottom: 32px;
+            word-break: keep-all;
+        }
+
+        .text-content p {
+            font-family: var(--font-sans);
+            font-size: var(--typo-body-l-size);
+            font-weight: var(--typo-body-l-weight);
+            line-height: var(--typo-body-lh);
+            letter-spacing: var(--typo-body-ls);
+            color: #4A4A4A;
+            word-break: keep-all; 
+        }
+
+        .text-content .serif-accent {
+            font-family: var(--font-serif);
+            font-weight: 500;
+            font-style: italic;
+            display: block;
+            margin-top: 40px;
+            font-size: 22px; 
+            color: var(--accent-amber);
+            letter-spacing: 0.02em;
+        }
+
+        /* =========================================
+           7. Scent-like Transition
+        ========================================= */
         .scent-reveal {
             opacity: 0; filter: blur(15px); transform: translateY(30px);
-            transition: opacity 1.4s cubic-bezier(0.2, 0.8, 0.2, 1), filter 1.4s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transition: opacity 1.4s cubic-bezier(0.2, 0.8, 0.2, 1), 
+                        filter 1.4s cubic-bezier(0.2, 0.8, 0.2, 1), 
+                        transform 1.4s cubic-bezier(0.2, 0.8, 0.2, 1);
             will-change: transform, opacity, filter;
         }
-        .scent-reveal.is-visible { opacity: 1; filter: blur(0); transform: translateY(0); }
 
+        .scent-reveal.is-visible {
+            opacity: 1; filter: blur(0); transform: translateY(0);
+        }
+
+        /* =========================================
+           8. Responsive
+        ========================================= */
         @media (max-width: 768px) {
-            .hero-title { font-size: 52px; }
+            .hero h1 { font-size: 48px; }
+            .hero { padding-top: 80px; }
             .section-minimal { grid-template-columns: 1fr; gap: 60px; }
-            .text-content { padding: 0; }
-            .cursor-glow { display: none; }
+            .text-content { padding-right: 0; padding-left: 5vw; }
+            .cursor-glow { display: none !important; }
             * { cursor: auto !important; }
         }
     </style>
@@ -183,19 +283,12 @@
     </nav>
 
     <main>
-        <header class="hero-signature">
-            <div class="hero-visual scent-reveal">
-                <img src="https://images.unsplash.com/photo-1616949755610-8c9bbc08f138?q=80&w=1000&auto=format&fit=crop" alt="VOID 16:00 Signature">
-            </div>
-            
-            <div class="hero-label scent-reveal" style="transition-delay: 0.1s;">Unseen Presence</div>
-            
-            <h1 class="hero-title scent-reveal" style="transition-delay: 0.2s;">
-                <span class="line-1">VOID</span>
-                <span class="line-2">16:00</span>
+        <header class="hero">
+            <h1 class="scent-reveal">
+                <span class="short-line">UNSEEN</span>
+                <span class="long-line">PRESENCE</span>
             </h1>
-            
-            <p class="hero-desc scent-reveal" style="transition-delay: 0.3s;">
+            <p class="hero-desc scent-reveal" style="transition-delay: 0.15s;">
                 말하지 않아도 전해지는, 당신과 나 사이의 공백.<br>
                 조용히 곁에 머물며 당신만의 아우라가 되는 향.
             </p>
@@ -203,28 +296,33 @@
 
         <section class="section-minimal">
             <div class="image-wrapper scent-reveal">
-                <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?q=80&w=1000&auto=format&fit=crop" alt="Perfume Story">
+                <img src="https://images.unsplash.com/photo-1616949755610-8c9bbc08f138?q=80&w=1000&auto=format&fit=crop" alt="VOID 16:00 Perfume">
             </div>
             
             <div class="text-content">
                 <span class="label scent-reveal">VOID 16:00</span>
                 <h2 class="scent-reveal" style="transition-delay: 0.1s;">오후 4시, 빛의 여백</h2>
+                
                 <p class="scent-reveal" style="transition-delay: 0.2s;">
                     서늘한 공기 사이로 비스듬히 떨어지는 오후의 볕.<br>
                     그 고요하고 나른한 찰나의 온도를 부드러운 잔향으로 엮어냈습니다.
                 </p>
+                
                 <span class="serif-accent scent-reveal" style="transition-delay: 0.3s;">A quiet space left just for you.</span>
             </div>
         </section>
     </main>
 
     <script>
-        /* 1. Cursor & Haptics */
+        /* 1. Custom Cursor & Haptics */
         const cursorGlow = document.getElementById('cursorGlow');
         const isMobile = window.innerWidth <= 768;
+
         if (!isMobile) {
-            let mouseX = window.innerWidth/2, mouseY = window.innerHeight/2, glowX = mouseX, glowY = mouseY;
+            let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+            let glowX = mouseX, glowY = mouseY;
             document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+
             function animateCursor() {
                 glowX += (mouseX - glowX) * 0.1; glowY += (mouseY - glowY) * 0.1;
                 cursorGlow.style.left = glowX + 'px'; cursorGlow.style.top = glowY + 'px';
@@ -232,20 +330,35 @@
             }
             animateCursor();
         }
-        document.addEventListener('click', () => { if(isMobile && navigator.vibrate) navigator.vibrate(10); });
 
-        /* 2. Nav Scroll (애니메이션 원복) */
+        document.addEventListener('click', () => {
+            if(isMobile && navigator.vibrate) { navigator.vibrate(10); }
+        });
+
+        /* 2. Nav Scroll - 헤더 박스 애니메이션 포함 */
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) navbar.classList.add('scrolled');
-            else navbar.classList.remove('scrolled');
+            if (window.scrollY > 50) { navbar.classList.add('scrolled'); } 
+            else { navbar.classList.remove('scrolled'); }
         });
 
         /* 3. Reveal Animation */
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('is-visible'); });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.scent-reveal').forEach(el => observer.observe(el));
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -15% 0px',
+            threshold: 0.1
+        };
+
+        const scentObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scent-reveal').forEach(el => scentObserver.observe(el));
     </script>
 </body>
 </html>
